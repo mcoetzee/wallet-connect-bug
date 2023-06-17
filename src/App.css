@@ -1,5 +1,26 @@
 .App {
   text-align: center;
+  background: #efefef;
+  max-width: 500px;
+  margin: 30px auto 0;
+  padding: 40px 20px;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+button {
+  background: cornflowerblue;
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid #313d53;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #3e75d9;
 }
 
 .App-logo {

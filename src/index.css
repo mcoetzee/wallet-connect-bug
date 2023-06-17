@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+[data-radix-popper-content-wrapper] {
+  background: #282c34;
+  color: white;
+  padding: 10px;
+}
