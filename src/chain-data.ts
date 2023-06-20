@@ -1,5 +1,6 @@
-import { useAccount, useNetwork, useProvider, useSigner } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import { useEffect } from "react";
+import { useEthersProvider, useEthersSigner } from "./ethers-adapters";
 
 export default function useChainData() {
   const { isConnected, address } = useAccount();
@@ -9,8 +10,8 @@ export default function useChainData() {
     console.log(">> new chain detected:", chain?.id);
   }, [chain?.id]);
 
-  const provider = useProvider({ chainId: chain?.id });
-  const { data: signer } = useSigner({ chainId: chain?.id });
+  const provider = useEthersProvider({ chainId: chain?.id });
+  const signer = useEthersSigner({ chainId: chain?.id });
 
   if (isConnected && address) {
     return {

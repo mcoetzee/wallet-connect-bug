@@ -1,41 +1,19 @@
 import ReactDOM from "react-dom/client";
 import { Web3Modal } from "@web3modal/react";
-import { WagmiConfig, configureChains, createClient } from "wagmi";
+import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { EthereumClient, w3mConnectors } from "@web3modal/ethereum";
 import { jsonRpcProvider } from "@wagmi/core/providers/jsonRpc";
 
 import App from "./App";
 import "./index.css";
 
-import {
-  avalanche,
-  avalancheFuji,
-  bsc,
-  bscTestnet,
-  mainnet,
-  fantomTestnet,
-  moonbeam,
-  moonriver,
-  polygon,
-  polygonMumbai,
-} from "wagmi/chains";
+import { mainnet } from "wagmi/chains";
 
-const chains = [
-  avalanche,
-  avalancheFuji,
-  bsc,
-  bscTestnet,
-  mainnet,
-  fantomTestnet,
-  moonbeam,
-  moonriver,
-  polygon,
-  polygonMumbai,
-];
+const chains = [mainnet];
 
 const projectId = "a0409c24632a93df2c03f7bd1b2593df";
 
-const { provider } = configureChains(chains, [
+const { publicClient } = configureChains(chains, [
   jsonRpcProvider({
     rpc: (chain) => {
       return {
@@ -46,10 +24,10 @@ const { provider } = configureChains(chains, [
   }),
 ]);
 
-export const wagmiClient = createClient({
+export const wagmiClient = createConfig({
   autoConnect: false,
   connectors: w3mConnectors({ version: 2, chains, projectId }),
-  provider,
+  publicClient,
 });
 
 export const ethereumClient = new EthereumClient(wagmiClient, chains);
@@ -60,7 +38,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <>
-    <WagmiConfig client={wagmiClient}>
+    <WagmiConfig config={wagmiClient}>
       <App />
     </WagmiConfig>
     <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
